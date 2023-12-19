@@ -28,7 +28,7 @@ OWNER_ID = int(os.environ.get("OWNER_ID", "6658497064"))
 PORT = os.environ.get("PORT", "8080")
 
 #Database 
-DB_URI = os.environ.get("DATABASE_URL", "https://telegram.me/+uG5zal3YwPU0MzBl")
+DB_URI = os.environ.get("DATABASE_URL", "https://t.me/+uG5zal3YwPU0MzBl")
 DB_NAME = os.environ.get("DATABASE_NAME", "database")
 
 #force sub channel id, if you want enable force sub
