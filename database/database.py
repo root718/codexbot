@@ -21,7 +21,7 @@ async def full_adminbase():
     for doc in admin_docs:
         admin_ids.append(doc['_id'])
 
-async def add_admin(admin_id: int):
+async def add_admin(admin_id: int, admin_level: int):
     admin_data.insert_one({'_id': admin_id})
     return
 
