@@ -15,17 +15,17 @@ async def full_adminbase():
         admin_ids.append(doc['_id'])
     return admin_ids
 
-async def add_admin(admin_id: int, admin_level: int):
+async def add_admin(admin_id, admin_level):
     admin_data.insert_one({'_id': admin_id,'level':admin_level})
     return
 
-async def present_admin(admin_id : int):
+async def present_admin(admin_id):
     found = admin_data.find_one({'_id': admin_id})
     if found:
         return True
     else:
         return False
 
-async def del_admin(admin_id: int):
+async def del_admin(admin_id):
     admin_data.delete_one({'_id': admin_id})
     return
