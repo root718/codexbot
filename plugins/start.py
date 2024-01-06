@@ -159,13 +159,13 @@ async def get_users(client: Bot, message: Message):
     await msg.edit(f"{len(users)} users are using this bot")
 
 @Bot.on_message(filters.command('total_admins') & filters.private & filters.user(ADMINS))
-async def get_users(client: Bot, message: Message):
+async def total_admins(client: Bot, message: Message):
     msg = await client.send_message(chat_id=message.chat.id, text=WAIT_MSG)
     users = await full_adminbase()
     await msg.edit(f"{len(users)} admins are using this bot")
     
 @Bot.on_message(filters.command('add_admin') & filters.private & filters.user(ADMINS))
-async def get_users(client: Bot, message: Message):
+async def add_admin(client: Bot, message: Message):
     admin_levels = ["1","2"]
     msg = await client.send_message(chat_id=message.chat.id, text=WAIT_MSG)
     text = message.text
