@@ -168,11 +168,12 @@ async def total_admins(client: Bot, message: Message):
 @Bot.on_message(filters.command('add_admin') & filters.private & filters.user(ADMINS))
 async def add_admin(client: Bot, message: Message):
     admin_levels = ["1","2"]
-    msg = await client.send_message(chat_id=message.chat.id, text=WAIT_MSG)
+    # msg = await client.send_message(chat_id=message.chat.id, text=WAIT_MSG)
     text = message.text
     data = text.split(" ")
     if(len(data) != 3 or data[2] not in admin_levels):
-        await msg.edit(f"Invalid command")
+        # await msg.edit(f"Invalid command")
+        await client.send_message(chat_id=message.chat.id, text = "Invalid command")
     else:
         if not await present_admin(int(data[1])):
             try:
@@ -183,9 +184,11 @@ async def add_admin(client: Bot, message: Message):
             except Exception as e:
                 await client.send_message(chat_id=message.chat.id, text = data[1] + "\n" + data[2] + "\n")
                 await client.send_message(chat_id=message.chat.id, text = e)
-                await msg.edit(f"Some error occured while adding new user you can check if admin is added or not by using /admin_list command")
+                await client.send_message(chat_id=message.chat.id, text = "Some error occured while adding new user you can check if admin is added or not by using /admin_list command")
+                # await msg.edit(f"Some error occured while adding new user you can check if admin is added or not by using /admin_list command")
         else:
-            await msg.edit(f"Given user is already admin")
+            # await msg.edit(f"Given user is already admin")
+            await client.send_message(chat_id=message.chat.id, text = "Given user is already admin")
 
 @Bot.on_message(filters.private & filters.command('broadcast') & filters.user(ADMINS))
 async def send_text(client: Bot, message: Message):
