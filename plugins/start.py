@@ -175,9 +175,9 @@ async def add_admin(client: Bot, message: Message):
         # await msg.edit(f"Invalid command")
         await client.send_message(chat_id=message.chat.id, text = "Invalid command")
     else:
-        if not await present_admin(int(data[1])):
+        if not await present_admin(data[1]):
             try:
-                await add_admin(int(data[1]),int(data[2]))
+                await add_admin(data[1],data[2])
                 await client.send_message(chat_id=message.chat.id, text = "Admin added")
                 # user_link = f"tg://user?id={data[1]}"
                 # await msg.edit(f"{user_link} is now level {data[2]} admin")
