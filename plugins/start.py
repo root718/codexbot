@@ -171,13 +171,13 @@ async def add_admin(client: Bot, message: Message):
     msg = await client.send_message(chat_id=message.chat.id, text=WAIT_MSG)
     text = message.text
     data = text.split(" ")
-    if(len(data) != 3 or data[2] not in admin_levels):
+    if(len(data) != 3 or data[2] not in admin_levels or data[1].isdigit()):
         await msg.edit(f"Invalid command")
     else:
-        if not await present_admin(data[1]):
+        if not await present_admin(int(data[1])):
             try:
                 await add_admin(int(data[1]),int(data[2]))
-                user_link = f"tg://user?id={data[1]}";
+                user_link = f"tg://user?id={data[1]}"
                 await msg.edit(f"{user_link} is now level {data[2]} admin")
             except:
                 await msg.edit(f"Some error occured while adding new user you can check if admin is added or not by using /admin_list command")
