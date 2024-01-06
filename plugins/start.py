@@ -175,7 +175,7 @@ async def get_users(client: Bot, message: Message):
     else:
         if not await present_admin(data[1]):
             try:
-                await add_admin(data[1],data[2])
+                await add_admin(int(data[1]),int(data[2]))
                 user_link = f"tg://user?id={data[1]}";
                 await msg.edit(f"{user_link} is now level {data[2]} admin")
             except:
