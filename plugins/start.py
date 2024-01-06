@@ -13,7 +13,7 @@ from pyrogram.errors import FloodWait, UserIsBlocked, InputUserDeactivated
 from bot import Bot
 from config import ADMINS, FORCE_MSG, START_MSG, CUSTOM_CAPTION, DISABLE_CHANNEL_BUTTON, PROTECT_CONTENT
 from helper_func import subscribed, encode, decode, get_messages
-from database.database import add_user, del_user, full_userbase, present_user
+from database.database import add_user, del_user, full_userbase, present_user, add_admin, present_admin, full_adminbase, del_admin
 
 
 
@@ -158,11 +158,30 @@ async def get_users(client: Bot, message: Message):
     users = await full_userbase()
     await msg.edit(f"{len(users)} users are using this bot")
 
-@Bot.on_message(filters.command('admins') & filters.private & filters.user(ADMINS))
+@Bot.on_message(filters.command('total_admins') & filters.private & filters.user(ADMINS))
 async def get_users(client: Bot, message: Message):
     msg = await client.send_message(chat_id=message.chat.id, text=WAIT_MSG)
-    # users = await full_userbase()
-    await msg.edit(f"Land")
+    users = await full_adminbase()
+    await msg.edit(f"{len(users)} admins are using this bot")
+    
+@Bot.on_message(filters.command('add_admin') & filters.private & filters.user(ADMINS))
+async def get_users(client: Bot, message: Message):
+    admin_levels = ["1","2"]
+    msg = await client.send_message(chat_id=message.chat.id, text=WAIT_MSG)
+    text = message.text
+    data = text.split(" ")
+    if(len(data) != 3 or data[2] not in admin_levels):
+        await msg.edit(f"Invalid command")
+    else:
+        if not await present_admin(data[1]):
+            try:
+                await add_admin(data[1],data[2])
+                user_link = f"tg://user?id={data[1]}";
+                await msg.edit(f"{user_link} is now level {data[2]} admin")
+            except:
+                await msg.edit(f"Some error occured while adding new user you can check if admin is added or not by using /admin_list command")
+        else:
+            await msg.edit(f"Given user is already admin")
 
 @Bot.on_message(filters.private & filters.command('broadcast') & filters.user(ADMINS))
 async def send_text(client: Bot, message: Message):
