@@ -12,29 +12,7 @@ database = dbclient[DB_NAME]
 
 
 user_data = database['users']
-admin_data = database['admins']
 
-
-async def full_adminbase():
-    admin_docs = admin_data.find()
-    admin_ids = []
-    for doc in admin_docs:
-        admin_ids.append(doc['_id'])
-
-async def add_admin(admin_id: int, admin_level: int):
-    admin_data.insert_one({'_id': admin_id,'level':admin_level})
-    return
-
-async def present_admin(admin_id : int):
-    found = admin_data.find_one({'_id': admin_id})
-    if found:
-        return True
-    else:
-        return False
-
-async def del_admin(admin_id: int):
-    admin_data.delete_one({'_id': admin_id})
-    return
 
 async def present_user(user_id : int):
     found = user_data.find_one({'_id': user_id})
