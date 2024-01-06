@@ -179,8 +179,9 @@ async def add_admin(client: Bot, message: Message):
                 await add_admin(int(data[1]),int(data[2]))
                 user_link = f"tg://user?id={data[1]}"
                 await msg.edit(f"{user_link} is now level {data[2]} admin")
-            except:
+            except Exception as e:
                 await msg.edit(f"Some error occured while adding new user you can check if admin is added or not by using /admin_list command")
+                print(e)
         else:
             await msg.edit(f"Given user is already admin")
 
