@@ -171,7 +171,7 @@ async def add_admin(client: Bot, message: Message):
     msg = await client.send_message(chat_id=message.chat.id, text=WAIT_MSG)
     text = message.text
     data = text.split(" ")
-    if(len(data) != 3 or data[2] not in admin_levels or data[1].isdigit()):
+    if(len(data) != 3 or data[2] not in admin_levels):
         await msg.edit(f"Invalid command")
     else:
         if not await present_admin(int(data[1])):
